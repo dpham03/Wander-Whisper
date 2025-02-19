@@ -35,7 +35,6 @@ def get_user_overall_embedding(image_folder_path, prompt, alpha, beta):
     if prompt:
         def extract_text_embedding():
             return evaluate_t5(prompt)
-        print(prompt)
     else:
         extract_text_embedding = None  # No text embedding
         print("No prompt provided")

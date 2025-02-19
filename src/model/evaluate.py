@@ -2,7 +2,16 @@ from transformers import T5Tokenizer, T5ForConditionalGeneration
 import torch
 import re
 import numpy as np
+import os
 from sentence_transformers import SentenceTransformer
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+# Compute the project root (one level up from src)
+PROJECT_ROOT = os.path.abspath(os.path.join(SCRIPT_DIR, "..", ".."))
+print("proj root = " + str(PROJECT_ROOT))
+# Build the relative model path
+MODEL_PATH = os.path.join(PROJECT_ROOT, "fine_tuned_models", "checkpoint-3000", "city_")
+print("model path = " + str(MODEL_PATH))
 
 def clean_and_extract_values(text):
     """
@@ -84,7 +93,6 @@ def evaluate_t5(input_text):
     """
     Takes an input paragraph, extracts structured attributes using T5, and returns a 512D embedding.
     """
-    MODEL_PATH = "/home/derrick/Documents/Wander Whisper/Wander-Whisper/fine_tuned_models/checkpoint-3000"
     BASE_T5_MODEL = "t5-base"
 
     # Load T5 model and tokenizer

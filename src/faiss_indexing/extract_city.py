@@ -3,9 +3,30 @@ import faiss
 import json
 import numpy as np
 import sys
+
+# Add the src folder to the system path to allow imports
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
 from src.embedding_extract.implicit_user_embedding import get_user_overall_embedding
 import datetime
+
+# Function to resolve the correct file path (for both Windows and WSL)
+def resolve_file_path(filename):
+    # Get the base project path
+    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+
+    # Check for WSL environment by inspecting the OS
+    if os.name == 'posix':
+        # We are running on a POSIX system (WSL or Linux), so we check for both the WSL and native paths
+        if os.path.exists("/mnt/c/Users/smakk/Wander-Whisper" + filename):
+            return "/mnt/c/Users/smakk/Wander-Whisper" + filename
+        elif os.path.exists(project_root + filename):
+            return project_root + filename
+    else:
+        # If running on Windows, return the native Windows path
+        return project_root + filename
+
+    # If no valid path is found, raise an error
+    raise FileNotFoundError(f"Could not find file: {filename}")
 
 # Get the absolute path of the current working directory (terminal location)
 SCRIPT_DIR = os.getcwd()
@@ -21,22 +42,17 @@ def recommend_cities(user_embedding, top_k=None):
     Returns:
         List of recommended city names with similarity scores.
     """
-    # Load FAISS index
-    index_path = os.path.join(SCRIPT_DIR, "city_embeddings_mongo.index")
+    # Dynamically resolve the path for the FAISS index
+    index_path = resolve_file_path("/data/embeddings/city_embeddings.index")
     index = faiss.read_index(index_path)
 
     # Ensure user embedding matches FAISS index dimension
     user_embedding = np.array(user_embedding).astype("float32").reshape(1, -1)
-    
-    #print(f"User embedding shape: {user_embedding.shape}")
-    #print(f"FAISS index dimension: {index.d}")
 
     if user_embedding.shape[1] < index.d:
         user_embedding = np.pad(user_embedding, ((0, 0), (0, index.d - user_embedding.shape[1])), mode='constant')
     elif user_embedding.shape[1] > index.d:
         user_embedding = user_embedding[:, :index.d]
-
-    #print(f"Adjusted user embedding shape: {user_embedding.shape}")
 
     # Search FAISS for all city embeddings
     distances, indices = index.search(user_embedding, index.ntotal)  # Retrieve all cities
@@ -46,7 +62,7 @@ def recommend_cities(user_embedding, top_k=None):
 
 
     # Load city names
-    city_names_path = os.path.join(SCRIPT_DIR, "city_names_mongo.json")
+    city_names_path = os.path.join(SCRIPT_DIR, "data/embeddings/city_names.json")
     with open(city_names_path, "r") as f:
         city_names = json.load(f)
 
@@ -71,8 +87,8 @@ def explanation(city_name):
     Returns:
         Explanation for the recommendation.
     """
-    # Load city explanations
-    city_explanations_path = os.path.join(SCRIPT_DIR, "data/embeddings/city_explanations.json")
+    # Dynamically resolve the path for the city explanations
+    city_explanations_path = resolve_file_path("/data/embeddings/city_explanations.json")
     with open(city_explanations_path, "r") as f:
         city_explanations = json.load(f)
 
@@ -94,7 +110,7 @@ def get_recommendations_with_time(image_folder_path, prompt, alpha, beta, top_k=
         Tuple containing the list of recommended cities with similarity scores and the running time.
     """
     start = datetime.datetime.now()
-    
+
     user_embedding = get_user_overall_embedding(image_folder_path, prompt, alpha, beta)
     recommendations = recommend_cities(user_embedding, top_k=top_k)
 
