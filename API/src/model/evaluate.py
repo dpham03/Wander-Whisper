@@ -6,12 +6,8 @@ import os
 from sentence_transformers import SentenceTransformer
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-# Compute the project root (one level up from src)
-PROJECT_ROOT = os.path.abspath(os.path.join(SCRIPT_DIR, "..", ".."))
-print("proj root = " + str(PROJECT_ROOT))
-# Build the relative model path
-MODEL_PATH = os.path.join(PROJECT_ROOT, "fine_tuned_models", "checkpoint-3000", "city_")
-print("model path = " + str(MODEL_PATH))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH = os.path.join(BASE_DIR, '../../', 'fine_tuned_models', 'checkpoint-3000')
 
 def clean_and_extract_values(text):
     """

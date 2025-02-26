@@ -57,6 +57,6 @@ def extract_clip_image_embeddings(image_folder, model_name="ViT-B/16", device=No
     return aggregated_embedding
 
 # Example usage
-image_folder_path = "/home/derrick/Documents/Wander Whisper/Wander-Whisper/data/images"
-image_embedding_vector = extract_clip_image_embeddings(image_folder_path)
-print(image_embedding_vector.shape)
+# image_folder_path = "/home/derrick/Documents/Wander Whisper/Wander-Whisper/data/images"
+# image_embedding_vector = extract_clip_image_embeddings(image_folder_path)
+# print(image_embedding_vector.shape)
