@@ -3,6 +3,9 @@ import torch
 import re
 import numpy as np
 from sentence_transformers import SentenceTransformer
+import os
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH = os.path.join(BASE_DIR, '../../', 'fine_tuned_models', 'checkpoint-3000')
 
 def clean_and_extract_values(text):
     """
@@ -84,7 +87,6 @@ def evaluate_t5(input_text):
     """
     Takes an input paragraph, extracts structured attributes using T5, and returns a 512D embedding.
     """
-    MODEL_PATH = "/home/derrick/Documents/Wander Whisper/Wander-Whisper/fine_tuned_models/checkpoint-3000"
     BASE_T5_MODEL = "t5-base"
 
     # Load T5 model and tokenizer

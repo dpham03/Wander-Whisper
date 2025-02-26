@@ -111,9 +111,10 @@ def find_recommended_cities(request):
         return JsonResponse({"error": "Error fetching alpha/beta from database"}, status=HTTP.INTERNAL_SERVER_ERROR)
     
     try:
-        user_embedding = get_user_overall_embedding(KnownDirs.API_DIR + image_path, KnownDirs.API_DIR + prompt_path, a, b)
+        #reccomended_cities = json with city name, country, score, lat, long, descript
+        user_embedding = get_user_overall_embedding(KnownDirs.API_DIR + image_path, "I am departing from Toronto, Canada in July and will return in August. My budget is adventure travel budget ($1,000 - $3,000 for guided tours), and I prefer local delicacies. I will be traveling solo for one week, and I enjoy hiking. I prefer a mountainous destination with cool ocean breeze weather. I will travel via high-speed train and prefer to use local currency for transactions. My accommodation choice is eco-lodge, and my transportation preference is walking. I want an adventure experience with wildlife conservation focus. My trip should be extreme adventure, and I love indigenous culture. I am interested in Carnival in Rio and will need full travel insurance. I prefer locations with female-friendly and wheelchair access support. For nightlife, I prefer casual bars, and my adventure level is high. I will also be adding guided city tours to my trip.", a, b)
         recommended_cities = recommend_cities(user_embedding, top_k=Config.TOP_K)
-        
+
         # Clean up media directory
         if os.path.exists(image_path):
             shutil.rmtree(image_path)  # Deletes all images
@@ -122,10 +123,11 @@ def find_recommended_cities(request):
         # Delete the prompt file if it exists
         if os.path.exists(prompt_path):
             os.remove(prompt_path)
-        
-        return JsonResponse({"recommended_cities": recommended_cities}, status=HTTP.OK)
+        print(recommended_cities)
+        return JsonResponse({"recommended_cities": str(recommended_cities)}, status=HTTP.OK)
 
     except Exception as e:
+        print(e)
         return JsonResponse({"error": "Error processing the embeddings"}, status=HTTP.INTERNAL_SERVER_ERROR)
     
 @csrf_exempt

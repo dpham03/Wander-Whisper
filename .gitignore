@@ -15,7 +15,7 @@ __pycache__/
 *.h5
 *.onnx
 fine_tuned_t5_travel/
-fine_tuned_models/
+API/fine_tuned_models/
 
 # Ignore Dataset Splits (if large)
 train_travel_data.json

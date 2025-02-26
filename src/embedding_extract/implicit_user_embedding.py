@@ -13,7 +13,6 @@ from src.model.evaluate import evaluate_t5
 # Get the absolute path of the current script's directory
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
-
 def get_user_overall_embedding(image_folder_path, prompt, alpha, beta):
     """
     Extracts user overall embedding by running image and text embedding extraction in parallel.
@@ -23,7 +22,8 @@ def get_user_overall_embedding(image_folder_path, prompt, alpha, beta):
     image_embedding, text_embedding = None, None
 
     # Convert relative paths to absolute paths
-    image_folder_path = os.path.abspath(os.path.join(SCRIPT_DIR, image_folder_path))
+    image_folder_path = os.path.abspath(os.path.join(SCRIPT_DIR, '../../../', image_folder_path))
+
     # Extract image embedding only if the folder exists
     if os.path.exists(image_folder_path):
         def extract_image_embedding():
@@ -31,6 +31,7 @@ def get_user_overall_embedding(image_folder_path, prompt, alpha, beta):
     else:
         extract_image_embedding = None  # No image embedding
         print("No image folder found")
+
     # Extract text embedding only if the text dataset exists
     if prompt:
         def extract_text_embedding():
@@ -44,7 +45,7 @@ def get_user_overall_embedding(image_folder_path, prompt, alpha, beta):
     with ThreadPoolExecutor(max_workers=2) as executor:
         future_image = executor.submit(extract_image_embedding) if extract_image_embedding else None
         future_text = executor.submit(extract_text_embedding) if extract_text_embedding else None
-
+        
         image_embedding = future_image.result() if future_image else None
         text_embedding = future_text.result() if future_text else None
 
