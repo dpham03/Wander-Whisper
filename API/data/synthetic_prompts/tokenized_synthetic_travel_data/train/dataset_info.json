@@ -1,0 +1,103 @@
+{
+  "citation": "",
+  "description": "",
+  "features": {
+    "prompt": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "output": {
+      "accessibility_needs": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "budget": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "departure_location": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "departure_month": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "destination_type": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "event_interest": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "food_preference": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "language_preference": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "preferred_activities": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "return_month": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "safety_preference": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "season": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "transportation_mode": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "travel_companions": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "travel_duration": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "visa_requirement": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "weather_preference": {
+        "dtype": "string",
+        "_type": "Value"
+      }
+    },
+    "input_ids": {
+      "feature": {
+        "dtype": "int32",
+        "_type": "Value"
+      },
+      "_type": "Sequence"
+    },
+    "attention_mask": {
+      "feature": {
+        "dtype": "int8",
+        "_type": "Value"
+      },
+      "_type": "Sequence"
+    },
+    "labels": {
+      "feature": {
+        "dtype": "int64",
+        "_type": "Value"
+      },
+      "_type": "Sequence"
+    }
+  },
+  "homepage": "",
+  "license": ""
+}

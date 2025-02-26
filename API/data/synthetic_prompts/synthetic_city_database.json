@@ -1,0 +1,302 @@
+[
+    {
+        "name": "Paris",
+        "metadata": {
+            "description": "A scenic destination with mountains, lakes, and outdoor adventures.",
+            "weather": "tropical",
+            "landscape": "island",
+            "transportation": "high-speed trains",
+            "activities": [
+                "scuba diving",
+                "shopping"
+            ],
+            "cuisine": "Japanese"
+        },
+        "image_folder": "./images/nyc"
+    },
+    {
+        "name": "New York",
+        "metadata": {
+            "description": "A historic city with ancient ruins and an old-town charm.",
+            "weather": "tropical",
+            "landscape": "island",
+            "transportation": "high-speed trains",
+            "activities": [
+                "skiing",
+                "food tours"
+            ],
+            "cuisine": "Street food culture"
+        },
+        "image_folder": "./images/nyc"
+    },
+    {
+        "name": "Tokyo",
+        "metadata": {
+            "description": "A city famous for its museums, theaters, and artistic heritage.",
+            "weather": "dry",
+            "landscape": "coastal",
+            "transportation": "bicycle-friendly",
+            "activities": [
+                "scuba diving",
+                "cultural festivals"
+            ],
+            "cuisine": "Asian fusion"
+        },
+        "image_folder": "./images/paris"
+    },
+    {
+        "name": "London",
+        "metadata": {
+            "description": "A modern technology hub with futuristic architecture and high-speed trains.",
+            "weather": "temperate",
+            "landscape": "urban",
+            "transportation": "public transport",
+            "activities": [
+                "skiing",
+                "scuba diving"
+            ],
+            "cuisine": "Italian"
+        },
+        "image_folder": "./images/paris"
+    },
+    {
+        "name": "Rome",
+        "metadata": {
+            "description": "A coastal city known for its stunning beaches and vibrant nightlife.",
+            "weather": "dry",
+            "landscape": "coastal",
+            "transportation": "bicycle-friendly",
+            "activities": [
+                "food tours",
+                "skiing"
+            ],
+            "cuisine": "Japanese"
+        },
+        "image_folder": "./images/nyc"
+    },
+    {
+        "name": "Barcelona",
+        "metadata": {
+            "description": "A modern technology hub with futuristic architecture and high-speed trains.",
+            "weather": "humid",
+            "landscape": "mountainous",
+            "transportation": "luxury cars",
+            "activities": [
+                "cultural festivals",
+                "hiking"
+            ],
+            "cuisine": "Mediterranean"
+        },
+        "image_folder": "./images/tokyo"
+    },
+    {
+        "name": "Dubai",
+        "metadata": {
+            "description": "A bustling metropolis with world-famous landmarks and a rich cultural scene.",
+            "weather": "tropical",
+            "landscape": "rural",
+            "transportation": "luxury cars",
+            "activities": [
+                "hiking",
+                "scuba diving"
+            ],
+            "cuisine": "Mediterranean"
+        },
+        "image_folder": "./images/london"
+    },
+    {
+        "name": "Sydney",
+        "metadata": {
+            "description": "A city known for its luxury shopping, fine dining, and iconic skyline.",
+            "weather": "desert",
+            "landscape": "mountainous",
+            "transportation": "high-speed trains",
+            "activities": [
+                "hiking",
+                "skiing"
+            ],
+            "cuisine": "French"
+        },
+        "image_folder": "./images/tokyo"
+    },
+    {
+        "name": "Los Angeles",
+        "metadata": {
+            "description": "A city famous for its museums, theaters, and artistic heritage.",
+            "weather": "dry",
+            "landscape": "island",
+            "transportation": "bicycle-friendly",
+            "activities": [
+                "cultural festivals",
+                "hiking"
+            ],
+            "cuisine": "Street food culture"
+        },
+        "image_folder": "./images/tokyo"
+    },
+    {
+        "name": "Bangkok",
+        "metadata": {
+            "description": "A scenic destination with mountains, lakes, and outdoor adventures.",
+            "weather": "humid",
+            "landscape": "urban",
+            "transportation": "public transport",
+            "activities": [
+                "food tours",
+                "skiing"
+            ],
+            "cuisine": "Japanese"
+        },
+        "image_folder": "./images/paris"
+    },
+    {
+        "name": "Berlin",
+        "metadata": {
+            "description": "A bustling metropolis with world-famous landmarks and a rich cultural scene.",
+            "weather": "cold",
+            "landscape": "island",
+            "transportation": "bicycle-friendly",
+            "activities": [
+                "food tours",
+                "shopping"
+            ],
+            "cuisine": "Italian"
+        },
+        "image_folder": "./images/london"
+    },
+    {
+        "name": "Amsterdam",
+        "metadata": {
+            "description": "A city famous for its museums, theaters, and artistic heritage.",
+            "weather": "dry",
+            "landscape": "coastal",
+            "transportation": "luxury cars",
+            "activities": [
+                "shopping",
+                "food tours"
+            ],
+            "cuisine": "Italian"
+        },
+        "image_folder": "./images/tokyo"
+    },
+    {
+        "name": "Toronto",
+        "metadata": {
+            "description": "A historic city with ancient ruins and an old-town charm.",
+            "weather": "humid",
+            "landscape": "mountainous",
+            "transportation": "luxury cars",
+            "activities": [
+                "scuba diving",
+                "food tours"
+            ],
+            "cuisine": "Japanese"
+        },
+        "image_folder": "./images/tokyo"
+    },
+    {
+        "name": "Singapore",
+        "metadata": {
+            "description": "A historic city with ancient ruins and an old-town charm.",
+            "weather": "temperate",
+            "landscape": "urban",
+            "transportation": "luxury cars",
+            "activities": [
+                "sightseeing",
+                "food tours"
+            ],
+            "cuisine": "French"
+        },
+        "image_folder": "./images/london"
+    },
+    {
+        "name": "Hong Kong",
+        "metadata": {
+            "description": "A city famous for its museums, theaters, and artistic heritage.",
+            "weather": "dry",
+            "landscape": "coastal",
+            "transportation": "bicycle-friendly",
+            "activities": [
+                "sightseeing",
+                "cultural festivals"
+            ],
+            "cuisine": "Mediterranean"
+        },
+        "image_folder": "./images/london"
+    },
+    {
+        "name": "San Francisco",
+        "metadata": {
+            "description": "A bustling metropolis with world-famous landmarks and a rich cultural scene.",
+            "weather": "temperate",
+            "landscape": "mountainous",
+            "transportation": "high-speed trains",
+            "activities": [
+                "sightseeing",
+                "skiing"
+            ],
+            "cuisine": "Mediterranean"
+        },
+        "image_folder": "./images/london"
+    },
+    {
+        "name": "Seoul",
+        "metadata": {
+            "description": "A scenic destination with mountains, lakes, and outdoor adventures.",
+            "weather": "dry",
+            "landscape": "island",
+            "transportation": "high-speed trains",
+            "activities": [
+                "scuba diving",
+                "cultural festivals"
+            ],
+            "cuisine": "Street food culture"
+        },
+        "image_folder": "./images/nyc"
+    },
+    {
+        "name": "Istanbul",
+        "metadata": {
+            "description": "A city known for its luxury shopping, fine dining, and iconic skyline.",
+            "weather": "temperate",
+            "landscape": "coastal",
+            "transportation": "public transport",
+            "activities": [
+                "food tours",
+                "hiking"
+            ],
+            "cuisine": "Street food culture"
+        },
+        "image_folder": "./images/paris"
+    },
+    {
+        "name": "Moscow",
+        "metadata": {
+            "description": "A city known for its luxury shopping, fine dining, and iconic skyline.",
+            "weather": "desert",
+            "landscape": "mountainous",
+            "transportation": "bicycle-friendly",
+            "activities": [
+                "shopping",
+                "scuba diving"
+            ],
+            "cuisine": "Italian"
+        },
+        "image_folder": "./images/london"
+    },
+    {
+        "name": "Cape Town",
+        "metadata": {
+            "description": "A historic city with ancient ruins and an old-town charm.",
+            "weather": "humid",
+            "landscape": "coastal",
+            "transportation": "high-speed trains",
+            "activities": [
+                "sightseeing",
+                "skiing"
+            ],
+            "cuisine": "Japanese"
+        },
+        "image_folder": "./images/nyc"
+    }
+]
