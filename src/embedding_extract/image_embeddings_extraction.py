@@ -57,13 +57,6 @@ def extract_clip_image_embeddings(image_folder, model_name="ViT-B/16", device=No
     return aggregated_embedding
 
 # Example usage
-#image_folder_path = "../data/images"
-#image_embedding_vector = extract_clip_image_embeddings(image_folder_path)
-#print(image_embedding_vector.shape)
-'''
-if image_embedding_vector is not None:
-    print("\nFinal Aggregated Embedding Shape:", image_embedding_vector.shape)  # Should be (512,)
-    #print("Sample Embedding Values:", image_embedding_vector[:5])  # Print first 5 values
-else:
-    print("⚠️ No valid images found in the folder.")
-'''
+image_folder_path = "/home/derrick/Documents/Wander Whisper/Wander-Whisper/data/images"
+image_embedding_vector = extract_clip_image_embeddings(image_folder_path)
+print(image_embedding_vector.shape)

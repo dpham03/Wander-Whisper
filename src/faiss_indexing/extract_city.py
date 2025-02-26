@@ -22,7 +22,7 @@ def recommend_cities(user_embedding, top_k=None):
         List of recommended city names with similarity scores.
     """
     # Load FAISS index
-    index_path = os.path.join(SCRIPT_DIR, "city_embeddings.index")
+    index_path = os.path.join(SCRIPT_DIR, "city_embeddings_mongo.index")
     index = faiss.read_index(index_path)
 
     # Ensure user embedding matches FAISS index dimension
@@ -46,7 +46,7 @@ def recommend_cities(user_embedding, top_k=None):
 
 
     # Load city names
-    city_names_path = os.path.join(SCRIPT_DIR, "city_names.json")
+    city_names_path = os.path.join(SCRIPT_DIR, "city_names_mongo.json")
     with open(city_names_path, "r") as f:
         city_names = json.load(f)
 
@@ -104,7 +104,8 @@ def get_recommendations_with_time(image_folder_path, prompt, alpha, beta, top_k=
     return recommendations, running_time
 
 # Example Usage
-image_folder_path = os.path.abspath(os.path.join(SCRIPT_DIR, "data/images"))
+#image_folder_path = os.path.abspath(os.path.join(SCRIPT_DIR, "data/images"))
+image_folder_path = "/home/derrick/Documents/Wander Whisper/Wander-Whisper/data/images"
 prompt = "I am departing from Toronto, Canada in July and will return in August. My budget is adventure travel budget ($1,000 - $3,000 for guided tours), and I prefer local delicacies. I will be traveling solo for one week, and I enjoy hiking. I prefer a mountainous destination with cool ocean breeze weather. I will travel via high-speed train and prefer to use local currency for transactions. My accommodation choice is eco-lodge, and my transportation preference is walking. I want an adventure experience with wildlife conservation focus. My trip should be extreme adventure, and I love indigenous culture. I am interested in Carnival in Rio and will need full travel insurance. I prefer locations with female-friendly and wheelchair access support. For nightlife, I prefer casual bars, and my adventure level is high. I will also be adding guided city tours to my trip."
 alpha = 0.5
 beta = 0.5
