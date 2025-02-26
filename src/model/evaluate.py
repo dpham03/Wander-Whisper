@@ -4,6 +4,9 @@ import re
 import numpy as np
 import os
 from sentence_transformers import SentenceTransformer
+import os
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH = os.path.join(BASE_DIR, '../../', 'fine_tuned_models', 'checkpoint-3000')
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 # Compute the project root (one level up from src)
