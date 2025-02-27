@@ -22,6 +22,7 @@ from src.embedding_extract.implicit_user_embedding import get_user_overall_embed
 from src.faiss_indexing.extract_city import recommend_cities
 
 os.makedirs(KnownDirs.IMAGE_DIR, exist_ok=True)
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 @csrf_exempt
 def upload_image(request):
@@ -111,8 +112,13 @@ def find_recommended_cities(request):
         return JsonResponse({"error": "Error fetching alpha/beta from database"}, status=HTTP.INTERNAL_SERVER_ERROR)
     
     try:
+        # read from file
+        relative_prompt_path = os.path.abspath(os.path.join(SCRIPT_DIR, '../../', KnownDirs.API_DIR + prompt_path))
+        p = open(relative_prompt_path, "r")
+        promptstr = p.read()
+        
         #reccomended_cities = json with city name, country, score, lat, long, descript
-        user_embedding = get_user_overall_embedding(KnownDirs.API_DIR + image_path, "I am departing from Toronto, Canada in July and will return in August. My budget is adventure travel budget ($1,000 - $3,000 for guided tours), and I prefer local delicacies. I will be traveling solo for one week, and I enjoy hiking. I prefer a mountainous destination with cool ocean breeze weather. I will travel via high-speed train and prefer to use local currency for transactions. My accommodation choice is eco-lodge, and my transportation preference is walking. I want an adventure experience with wildlife conservation focus. My trip should be extreme adventure, and I love indigenous culture. I am interested in Carnival in Rio and will need full travel insurance. I prefer locations with female-friendly and wheelchair access support. For nightlife, I prefer casual bars, and my adventure level is high. I will also be adding guided city tours to my trip.", a, b)
+        user_embedding = get_user_overall_embedding(KnownDirs.API_DIR + image_path, promptstr, a, b)
         recommended_cities = recommend_cities(user_embedding, top_k=Config.TOP_K)
 
         # Clean up media directory
