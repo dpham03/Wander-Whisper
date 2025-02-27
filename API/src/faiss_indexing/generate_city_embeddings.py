@@ -233,7 +233,7 @@ def generate_city_embeddings_mongodb(mongo_uri, db_name, collection_name):
 # Example usage:
 mongo_uri = f"mongodb+srv://dtp39:WanderWhisperPassword@wanderwhisperer.18iuu.mongodb.net/WanderWhisper?retryWrites=true&w=majority"
 db_name = "WanderWhisper"
-collection_name = "US_cities"
+collection_name = "top500"
 
 generate_city_embeddings_mongodb(mongo_uri, db_name, collection_name)
 # Run the function
