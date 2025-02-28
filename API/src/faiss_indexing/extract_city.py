@@ -111,10 +111,9 @@ def recommend_cities(user_embedding, top_k=None, mongo_uri=None, db_name=None, c
 
     # Search FAISS for all city embeddings
     distances, indices = index.search(user_embedding, index.ntotal)  # Retrieve all cities
-
     # Convert L2 distances to similarity scores (1 / (1 + distance))
-    similarity_scores = 1 / (1 + distances[0])
-    #print(similarity_scores)
+    similarity_scores = np.round(1 / (1 + distances[0]), 4)
+
     # Load city names
     city_names_path = os.path.join(SCRIPT_DIR, "data/embeddings/city_names_mongo.json")
     with open(city_names_path, "r") as f:
@@ -122,16 +121,21 @@ def recommend_cities(user_embedding, top_k=None, mongo_uri=None, db_name=None, c
 
     # Pair city names with similarity scores
     city_scores = [(idx, similarity_scores[i]) for i, idx in enumerate(indices[0])]
+    #print(city_scores)
+    if top_k:
+        city_scores = city_scores[:top_k]
+    print(city_scores)
     # Print IDs of all cities
     #for idx in indices[0]:
     #    print(f"City ID: {idx}")
     # Sort by similarity score (descending order)
-    city_scores = sorted(city_scores, key=lambda x: x[1], reverse=True)
+    #city_scores = sorted(city_scores, key=lambda x: x[1], reverse=True)
     #print(city_scores)
+    #print(city_scores[:6])
     # Fetch detailed city info from MongoDB for the top cities
-    city_ids = [int(idx) for idx in indices[0]]
     #print(city_ids)
     if mongo_uri and db_name and collection_name:
+        city_ids = [int(city_score[0]) for city_score in city_scores]
         city_details = get_city_details(mongo_uri, db_name, collection_name, city_ids)
     else:
         city_details = []
@@ -153,7 +157,6 @@ def recommend_cities(user_embedding, top_k=None, mongo_uri=None, db_name=None, c
     # Return top-k cities with their details if specified
     if top_k:
         return recommended_cities[:top_k]
-    
     return recommended_cities
 
 
@@ -244,12 +247,11 @@ def get_recommendations_with_time(image_folder_path, prompt, alpha, beta, top_k=
     #print(user_embedding)
     # Get city recommendations
     recommendations = recommend_cities(user_embedding, top_k=top_k, mongo_uri=mongo_uri, db_name=db_name, collection_name=collection_name)
-    print(recommendations[1])
+    #print(recommendations[1])
     # Record the end time and calculate the running time
     end = datetime.datetime.now()
     running_time = end - start
-    if top_k:
-        recommendations_top_k = recommendations[:top_k]
+    print()
     #print(recommendations_top_k)
     # Save recommendations to a JSON file
     recommendations_filename = "topk_results.json"
@@ -266,7 +268,9 @@ def get_recommendations_with_time(image_folder_path, prompt, alpha, beta, top_k=
 # Example Usage
 image_folder_path = os.path.abspath(os.path.join(SCRIPT_DIR, "data/images"))
 #image_folder_path = "/Users/apple/Documents/GitHub/Wander-Whisper/API/data/images"
-prompt = "I am departing from Toronto, Canada in July and will return in August. My budget is adventure travel budget ($1,000 - $3,000 for guided tours), and I prefer local delicacies. I will be traveling solo for one week, and I enjoy hiking. I prefer a mountainous destination with cool ocean breeze weather. I will travel via high-speed train and prefer to use local currency for transactions. My accommodation choice is eco-lodge, and my transportation preference is walking. I want an adventure experience with wildlife conservation focus. My trip should be extreme adventure, and I love indigenous culture. I am interested in Carnival in Rio and will need full travel insurance. I prefer locations with female-friendly and wheelchair access support. For nightlife, I prefer casual bars, and my adventure level is high. I will also be adding guided city tours to my trip."
+prompt = """
+I want a luxury getaway where I can relax and indulge. A high-end resort with a beachfront view and spa facilities is a must. My budget is around $10,000, and I’m traveling with my partner for one week. I’d love to enjoy fine dining, high-end shopping, and private guided tours. My departure location is London, and I’m planning to travel in June. Safety and exclusivity are my top priorities, and I prefer a destination with warm, sunny weather. I also need reliable internet as I may need to check emails occasionally.
+"""
 alpha = 0.5
 beta = 0.5
 top_k = 10
@@ -276,5 +280,6 @@ print("\n**Top Recommended Cities:**")
 #for city, score in recommendations:
 #    print(f"{city} - Similarity Score: {score*100:.2f}/100")
     #print(f"Explanation: {explanation(city)}\n")
+print(prompt)
 print(recommendations)
 print("Time taken:", running_time)
