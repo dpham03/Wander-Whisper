@@ -145,6 +145,7 @@ def recommend_cities(user_embedding, top_k=None, mongo_uri=None, db_name=None, c
             "country": city_detail.get("country", ""),
             "lat": city_detail.get("lat", ""),
             "lng": city_detail.get("lng", ""),
+            "description": city_detail.get("description", ""),
             "score": float(city_score[1])
         }
         recommended_cities.append(city_info)
