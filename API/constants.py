@@ -14,6 +14,7 @@ class FlightScraper:
 class HTTP:
     OK = 200
     CREATED = 201
+    ACCEPTED = 202
     BAD_REQUEST = 400    
     NOT_FOUND = 404
     METHOD_NOT_ALLOWED = 405
@@ -23,6 +24,7 @@ class KnownDirs:
     IMAGE_DIR = "Media/images/"
     TEXT_FILE_PATH = "Media/prompt.txt"
     API_DIR = "API/"
+    DUMMY_DIR = "ThisDirWillNeverExist/"
 
 class Config:
     TOP_K = 5
@@ -30,3 +32,6 @@ class Config:
     BETA_DEFAULT = 0.5
     IMAGE_ONLY_AB = 1,0
     PROMPT_ONLY_AB = 0,1
+
+class Media:
+    ALLOWED_FILE_TYPES = ('.jpg', '.jpeg', '.png', '.gif', '.bmp')

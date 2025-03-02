@@ -8,10 +8,10 @@ import json
 from constants import KnownDirs, HTTP, Config
 import os
 import sys
-import shutil 
     
 # core functionality
 from FlightScraper import SearchFlights
+import MediaOperator
 
 # debugging tools
 import time
@@ -21,7 +21,6 @@ sys.path.append('..')
 from src.embedding_extract.implicit_user_embedding import get_user_overall_embedding
 from src.faiss_indexing.extract_city import recommend_cities
 
-os.makedirs(KnownDirs.IMAGE_DIR, exist_ok=True)
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 @csrf_exempt
@@ -31,15 +30,8 @@ def upload_image(request):
             return JsonResponse({"error": "No image uploaded."}, status=HTTP.BAD_REQUEST)
 
     image = request.FILES["image"]
-    print(f"Received image: {image.name}")  # Print image name to debug
-    image_path = os.path.join(KnownDirs.IMAGE_DIR, image.name)
-    
-    if not image.name.lower().endswith(('.jpg', '.jpeg', '.png', '.gif', '.bmp')):
+    if MediaOperator.addImage(image) is False:
         return JsonResponse({"error": "Invalid image format. Only .jpg, .jpeg, .png, .gif, and .bmp are allowed."}, status=HTTP.BAD_REQUEST)
-
-    with open(image_path, "wb+") as dest:
-        for chunk in image.chunks():
-            dest.write(chunk)
 
     return JsonResponse({"success": f"Image '{image.name}' uploaded."}, status=HTTP.CREATED)
     
@@ -48,17 +40,13 @@ def upload_prompt(request):
     """ Post the user prompt """
     if not request.method == "POST":
         return JsonResponse({"error": "Invalid request method."}, status=HTTP.METHOD_NOT_ALLOWED)
-    try:
-        data = json.loads(request.body)
-        prompt = data.get("prompt", "")
-        
-        with open(KnownDirs.TEXT_FILE_PATH, "w") as f:
-            f.write(prompt)
-            
-        return JsonResponse({"success": f"Prompt saved!"}, status=HTTP.CREATED)
     
-    except json.JSONDecodeError:
-        return JsonResponse({"error": "Invalid JSON format."}, status=HTTP.BAD_REQUEST)
+    data = json.loads(request.body)
+    prompt = data.get("prompt", "")
+    if MediaOperator.addPrompt(prompt):
+        return JsonResponse({"success": f"Prompt saved!"}, status=HTTP.CREATED)
+
+    return JsonResponse({"error": "Invalid JSON format."}, status=HTTP.BAD_REQUEST)
     
 @csrf_exempt
 def set_alpha_beta(request):
@@ -82,60 +70,59 @@ def set_alpha_beta(request):
         return JsonResponse({"error": "Invalid alpha/beta values."}, status=HTTP.BAD_REQUEST)
 
 @csrf_exempt
+def reset_to_startup(request):
+    if not request.method == "DELETE":
+        return JsonResponse({"error": "Invalid request method."}, status=HTTP.METHOD_NOT_ALLOWED)
+    MediaOperator.cleanupMedia()
+    MediaOperator.createMedia()
+    return JsonResponse({"success": "Media is reset"}, status=HTTP.ACCEPTED)
+
+@csrf_exempt
 def find_recommended_cities(request):
+    # safety checks
     if not request.method == "GET":
         return JsonResponse({"error": "Invalid request method."}, status=HTTP.METHOD_NOT_ALLOWED)
     
-    image_path = KnownDirs.IMAGE_DIR
-    prompt_path = KnownDirs.TEXT_FILE_PATH
-    
     # cursory checks for populated paths
-    prompt_exists = os.path.exists(prompt_path)
-    images_exist = os.path.exists(image_path) and any(
-        filename.lower().endswith(('.jpg', '.jpeg', '.png', '.gif', '.bmp')) for filename in os.listdir(image_path)
-    )
+    prompt_exists, images_exist = MediaOperator.mediaHasDataCheck()
     
     # if nothing was populated, give up
     if not prompt_exists and not images_exist:
         return JsonResponse({"error": "No images or prompt to read"}, status=HTTP.BAD_REQUEST)
 
+    # try to grab alpha beta
     a,b = Config.ALPHA_DEFAULT, Config.BETA_DEFAULT
     try:
         grabbedConfig = EmbeddingConfig.objects.first()
         if grabbedConfig:
             a,b = grabbedConfig.alpha, grabbedConfig.beta        
-        if images_exist and not prompt_path:
+        if images_exist and not KnownDirs.TEXT_FILE_PATH:
             a,b = Config.IMAGE_ONLY_AB
         elif prompt_exists and not images_exist:
             a,b = Config.PROMPT_ONLY_AB
     except:
         return JsonResponse({"error": "Error fetching alpha/beta from database"}, status=HTTP.INTERNAL_SERVER_ERROR)
     
+    # if the embedding extraction attempt fails, handle it gracefully
+    recommended_cities = ""
     try:
         # read from file
-        relative_prompt_path = os.path.abspath(os.path.join(SCRIPT_DIR, '../../', KnownDirs.API_DIR + prompt_path))
-        p = open(relative_prompt_path, "r")
-        promptstr = p.read()
+        prompt_str = MediaOperator.readPrompt(SCRIPT_DIR, 2)
+        pass_image_path = KnownDirs.API_DIR + KnownDirs.IMAGE_DIR if images_exist else KnownDirs.DUMMY_DIR
         
-        #reccomended_cities = json with city name, country, score, lat, long, descript
-        user_embedding = get_user_overall_embedding(KnownDirs.API_DIR + image_path, promptstr, a, b)
+        # reccomended_cities = json with city name, country, score, lat, long, descript
+        user_embedding = get_user_overall_embedding(pass_image_path, prompt_str, a, b)
         recommended_cities = recommend_cities(user_embedding, top_k=Config.TOP_K)
-
-        # Clean up media directory
-        if os.path.exists(image_path):
-            shutil.rmtree(image_path)  # Deletes all images
-            os.makedirs(image_path)  # Recreate empty folder
-
-        # Delete the prompt file if it exists
-        if os.path.exists(prompt_path):
-            os.remove(prompt_path)
-        print(recommended_cities)
-        return JsonResponse({"recommended_cities": str(recommended_cities)}, status=HTTP.OK)
 
     except Exception as e:
         print(e)
         return JsonResponse({"error": "Error processing the embeddings"}, status=HTTP.INTERNAL_SERVER_ERROR)
     
+    # Now we are done
+    MediaOperator.cleanupMedia()
+
+    return JsonResponse({"recommended_cities": str(recommended_cities)}, status=HTTP.OK)
+
 @csrf_exempt
 def find_airport_path(request):
     """

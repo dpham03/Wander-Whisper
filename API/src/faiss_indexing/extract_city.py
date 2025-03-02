@@ -265,21 +265,21 @@ def get_recommendations_with_time(image_folder_path, prompt, alpha, beta, top_k=
 
 
 
-# Example Usage
-image_folder_path = os.path.abspath(os.path.join(SCRIPT_DIR, "data/images"))
-#image_folder_path = "/Users/apple/Documents/GitHub/Wander-Whisper/API/data/images"
-prompt = """
-I want a luxury getaway where I can relax and indulge. A high-end resort with a beachfront view and spa facilities is a must. My budget is around $10,000, and I’m traveling with my partner for one week. I’d love to enjoy fine dining, high-end shopping, and private guided tours. My departure location is London, and I’m planning to travel in June. Safety and exclusivity are my top priorities, and I prefer a destination with warm, sunny weather. I also need reliable internet as I may need to check emails occasionally.
-"""
-alpha = 0.5
-beta = 0.5
-top_k = 10
+# # Example Usage
+# image_folder_path = os.path.abspath(os.path.join(SCRIPT_DIR, "data/images"))
+# #image_folder_path = "/Users/apple/Documents/GitHub/Wander-Whisper/API/data/images"
+# prompt = """
+# I want a luxury getaway where I can relax and indulge. A high-end resort with a beachfront view and spa facilities is a must. My budget is around $10,000, and I’m traveling with my partner for one week. I’d love to enjoy fine dining, high-end shopping, and private guided tours. My departure location is London, and I’m planning to travel in June. Safety and exclusivity are my top priorities, and I prefer a destination with warm, sunny weather. I also need reliable internet as I may need to check emails occasionally.
+# """
+# alpha = 0.5
+# beta = 0.5
+# top_k = 10
 
-recommendations, running_time = get_recommendations_with_time(image_folder_path, prompt, alpha, beta, top_k)
-print("\n**Top Recommended Cities:**")
-#for city, score in recommendations:
-#    print(f"{city} - Similarity Score: {score*100:.2f}/100")
-    #print(f"Explanation: {explanation(city)}\n")
-print(prompt)
-print(recommendations)
-print("Time taken:", running_time)
+# recommendations, running_time = get_recommendations_with_time(image_folder_path, prompt, alpha, beta, top_k)
+# print("\n**Top Recommended Cities:**")
+# #for city, score in recommendations:
+# #    print(f"{city} - Similarity Score: {score*100:.2f}/100")
+#     #print(f"Explanation: {explanation(city)}\n")
+# print(prompt)
+# print(recommendations)
+# print("Time taken:", running_time)
