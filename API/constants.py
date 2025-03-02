@@ -32,6 +32,7 @@ class Config:
     BETA_DEFAULT = 0.5
     IMAGE_ONLY_AB = 1,0
     PROMPT_ONLY_AB = 0,1
+    TOP_K_FILE_LOCATION = "topk_results.json"
 
 class Media:
     ALLOWED_FILE_TYPES = ('.jpg', '.jpeg', '.png', '.gif', '.bmp')

@@ -18,8 +18,7 @@ import time
 
 # database and embedding tools
 sys.path.append('..')
-from src.embedding_extract.implicit_user_embedding import get_user_overall_embedding
-from src.faiss_indexing.extract_city import recommend_cities
+from src.faiss_indexing.extract_city import get_recommendations_with_time
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -104,16 +103,25 @@ def find_recommended_cities(request):
         return JsonResponse({"error": "Error fetching alpha/beta from database"}, status=HTTP.INTERNAL_SERVER_ERROR)
     
     # if the embedding extraction attempt fails, handle it gracefully
-    recommended_cities = ""
+    recv_data = None
     try:
         # read from file
         prompt_str = MediaOperator.readPrompt(SCRIPT_DIR, 2)
         pass_image_path = KnownDirs.API_DIR + KnownDirs.IMAGE_DIR if images_exist else KnownDirs.DUMMY_DIR
         
         # reccomended_cities = json with city name, country, score, lat, long, descript
-        user_embedding = get_user_overall_embedding(pass_image_path, prompt_str, a, b)
-        recommended_cities = recommend_cities(user_embedding, top_k=Config.TOP_K)
+        get_recommendations_with_time(pass_image_path, prompt_str, a, b, Config.TOP_K)
 
+        # load the json
+        recv_data = None
+        top_k_file = os.path.join(SCRIPT_DIR, '..', Config.TOP_K_FILE_LOCATION)
+        with open(top_k_file, 'r') as f:
+            recv_data = json.load(f)
+        
+        # make sure we got the data
+        if recv_data is None:
+            return JsonResponse({"error": "Error processing the embeddings"}, status=HTTP.INTERNAL_SERVER_ERROR)
+        
     except Exception as e:
         print(e)
         return JsonResponse({"error": "Error processing the embeddings"}, status=HTTP.INTERNAL_SERVER_ERROR)
@@ -121,7 +129,7 @@ def find_recommended_cities(request):
     # Now we are done
     MediaOperator.cleanupMedia()
 
-    return JsonResponse({"recommended_cities": str(recommended_cities)}, status=HTTP.OK)
+    return JsonResponse(recv_data, safe=False)
 
 @csrf_exempt
 def find_airport_path(request):

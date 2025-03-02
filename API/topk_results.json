@@ -1,30 +1,12 @@
 [
     {
-        "city_id": "240",
-        "name": "Karlsruhe",
-        "country": "Germany",
-        "lat": "49.0092",
-        "lng": "8.404",
-        "description": "A German city, known for its fan-shaped layout and technology sector.",
-        "score": 0.7095000147819519
-    },
-    {
-        "city_id": "262",
-        "name": "Graz",
-        "country": "Austria",
-        "lat": "47.0708",
-        "lng": "15.4386",
-        "description": "An Austrian city, known for its well-preserved medieval architecture and vibrant student life.",
-        "score": 0.7088000178337097
-    },
-    {
-        "city_id": "208",
-        "name": "Cairo",
-        "country": "Egypt",
-        "lat": "30.0444",
-        "lng": "31.2358",
-        "description": "The capital of Egypt, known for its ancient pyramids, bustling streets, and rich history.",
-        "score": 0.7078999876976013
+        "city_id": "201",
+        "name": "Bucharest",
+        "country": "Romania",
+        "lat": "44.4325",
+        "lng": "26.1039",
+        "description": "The capital of Romania, known for its grand architecture, historic buildings, and vibrant nightlife.",
+        "score": 0.6804999709129333
     },
     {
         "city_id": "347",
@@ -33,7 +15,7 @@
         "lat": "24.86",
         "lng": "67.01",
         "description": "Pakistan\u2019s largest city, known for its port, diverse culture, and bustling economy.",
-        "score": 0.7071999907493591
+        "score": 0.6761000156402588
     },
     {
         "city_id": "13",
@@ -42,7 +24,7 @@
         "lat": "33.7628",
         "lng": "-84.422",
         "description": "A major city in Georgia, known for its role in the civil rights movement and its thriving economy.",
-        "score": 0.7067999839782715
+        "score": 0.6735000014305115
     },
     {
         "city_id": "21",
@@ -51,42 +33,15 @@
         "lat": "43.6721",
         "lng": "-92.9784",
         "description": "A city in Texas known for its live music scene, tech industry, and vibrant cultural atmosphere.",
-        "score": 0.7067999839782715
+        "score": 0.67330002784729
     },
     {
-        "city_id": "95",
-        "name": "Abu Dhabi",
-        "country": "United Arab Emirates",
-        "lat": "24.4667",
-        "lng": "54.3667",
-        "description": "The capital of the United Arab Emirates, known for its luxury, skyscrapers, and oil wealth.",
-        "score": 0.7064999938011169
-    },
-    {
-        "city_id": "211",
-        "name": "Fuji",
-        "country": "Japan",
-        "lat": "35.1613",
-        "lng": "138.6763",
-        "description": "A city in Japan, known for its proximity to Mount Fuji and stunning natural scenery.",
-        "score": 0.705299973487854
-    },
-    {
-        "city_id": "445",
-        "name": "Tehran",
-        "country": "Iran",
-        "lat": "35.6892",
-        "lng": "51.3889",
-        "description": "The capital of Iran, known for its bazaars, mountains, and political importance.",
-        "score": 0.704800009727478
-    },
-    {
-        "city_id": "480",
-        "name": "Lviv",
-        "country": "Ukraine",
-        "lat": "49.8425",
-        "lng": "24.0322",
-        "description": "A Ukrainian city known for its medieval Old Town and European influences.",
-        "score": 0.7046999931335449
+        "city_id": "304",
+        "name": "Bursa, Turkey",
+        "country": "Turkey",
+        "lat": 40.1828,
+        "lng": 29.0665,
+        "description": "A Turkish city known for its Ottoman history, silk industry, and mountain backdrop.",
+        "score": 0.6700999736785889
     }
 ]
