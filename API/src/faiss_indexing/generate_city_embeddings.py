@@ -158,7 +158,7 @@ def generate_city_embeddings_mongodb(mongo_uri, db_name, collection_name):
     collection = db[collection_name]
     
     # Load existing city names if available
-    city_names_path = "city_names_mongo.json"
+    city_names_path = "/Users/apple/Documents/GitHub/Wander-Whisper/API/data/embeddings/city_names_mongo.json"
     if os.path.exists(city_names_path):
         with open(city_names_path, "r") as f:
             existing_city_names = json.load(f)
@@ -208,7 +208,7 @@ def generate_city_embeddings_mongodb(mongo_uri, db_name, collection_name):
         new_city_embeddings = np.array(new_city_embeddings).astype("float32")
         
         # Load existing FAISS index or create a new one
-        index_path = "city_embeddings_mongo.index"
+        index_path = "/Users/apple/Documents/GitHub/Wander-Whisper/API/data/embeddings/city_embeddings_mongo.index"
         if os.path.exists(index_path):
             index = faiss.read_index(index_path)
         else:
