@@ -1,47 +1,47 @@
 [
     {
-        "city_id": "201",
-        "name": "Bucharest",
-        "country": "Romania",
-        "lat": "44.4325",
-        "lng": "26.1039",
-        "description": "The capital of Romania, known for its grand architecture, historic buildings, and vibrant nightlife.",
-        "score": 0.6804999709129333
+        "city_id": "16",
+        "name": "Stockholm",
+        "country": "Sweden",
+        "lat": "59.3294",
+        "lng": "18.0686",
+        "description": "The capital of Sweden, known for its beautiful archipelago, historic sites, and high quality of life.",
+        "score": 0.5299999713897705
     },
     {
-        "city_id": "347",
-        "name": "Karachi",
-        "country": "Pakistan",
-        "lat": "24.86",
-        "lng": "67.01",
-        "description": "Pakistan\u2019s largest city, known for its port, diverse culture, and bustling economy.",
-        "score": 0.6761000156402588
+        "city_id": "95",
+        "name": "Abu Dhabi",
+        "country": "United Arab Emirates",
+        "lat": "24.4667",
+        "lng": "54.3667",
+        "description": "The capital of the United Arab Emirates, known for its luxury, skyscrapers, and oil wealth.",
+        "score": 0.527400016784668
     },
     {
-        "city_id": "13",
-        "name": "Atlanta",
+        "city_id": "111",
+        "name": "Greensboro",
         "country": "United States",
-        "lat": "33.7628",
-        "lng": "-84.422",
-        "description": "A major city in Georgia, known for its role in the civil rights movement and its thriving economy.",
-        "score": 0.6735000014305115
+        "lat": "36.0956",
+        "lng": "-79.8271",
+        "description": "A city in North Carolina, known for its role in the civil rights movement and its educational institutions.",
+        "score": 0.5242999792098999
     },
     {
-        "city_id": "21",
-        "name": "Austin",
-        "country": "United States",
-        "lat": "43.6721",
-        "lng": "-92.9784",
-        "description": "A city in Texas known for its live music scene, tech industry, and vibrant cultural atmosphere.",
-        "score": 0.67330002784729
+        "city_id": "235",
+        "name": "Suwon",
+        "country": "South Korea",
+        "lat": 37.2636,
+        "lng": 127.0286,
+        "description": "A city in South Korea, known for its historic fortress and technology industry.",
+        "score": 0.5205000042915344
     },
     {
-        "city_id": "304",
-        "name": "Bursa, Turkey",
-        "country": "Turkey",
-        "lat": 40.1828,
-        "lng": 29.0665,
-        "description": "A Turkish city known for its Ottoman history, silk industry, and mountain backdrop.",
-        "score": 0.6700999736785889
+        "city_id": "334",
+        "name": "Cape Town",
+        "country": "South Africa",
+        "lat": "-33.9253",
+        "lng": "18.4239",
+        "description": "A South African coastal city known for Table Mountain, beaches, and cultural diversity.",
+        "score": 0.5202999711036682
     }
 ]

@@ -5,9 +5,9 @@ import os
 import sys
 from pymongo import MongoClient
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
-from src.embedding_extract.implicit_user_embedding import get_user_overall_embedding
-from src.model.evaluate import evaluate_t5
-from src.model.evaluate import extract_criteria2, user_preferences_to_embedding
+from implicit_user_embedding import get_user_overall_embedding
+from API.src.model.evaluate import evaluate_t5
+from API.src.model.evaluate import extract_criteria2, user_preferences_to_embedding
 
 def generate_city_embeddings(city_json_file):
     """

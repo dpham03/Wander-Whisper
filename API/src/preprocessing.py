@@ -29,7 +29,7 @@ def tokenize_function(examples, tokenizer):
 if __name__ == "__main__":
     tokenizer = T5Tokenizer.from_pretrained("t5-base")
     
-    with open("./synthetic_prompts/expanded_synthetic_travel_data.json", "r") as f:
+    with open("synthetic_travel_prompts.json", "r") as f:
         raw_data = json.load(f)['data']
 
     
@@ -51,5 +51,5 @@ if __name__ == "__main__":
     # Save tokenized datasets
     dataset_dict = DatasetDict({"train": train_dataset, "validation": val_dataset})
     
-    dataset_dict.save_to_disk("./synthetic_prompts/tokenized_synthetic_travel_data")
+    dataset_dict.save_to_disk("tokenized_synthetic_travel_data")
 

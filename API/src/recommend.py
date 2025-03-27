@@ -7,81 +7,13 @@ from pymongo import MongoClient
 
 # Add the src folder to the system path to allow imports
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'src')))
-from embedding_extract.implicit_user_embedding import get_user_overall_embedding
+from implicit_user_embedding import get_user_overall_embedding
 import datetime
+from bson import ObjectId
 
 # Get the absolute path of the current working directory (terminal location)
 SCRIPT_DIR = os.getcwd()
 
-def recommend_cities_old(user_embedding, top_k=None):
-    """
-    Finds the most similar city embeddings using FAISS and prints similarity scores for all cities.
-
-    Args:
-        user_embedding (np.array): The final user embedding vector.
-        top_k (int, optional): Number of top cities to retrieve. If None, shows all cities.
-
-    Returns:
-        List of recommended city names with similarity scores.
-    """
-    # Dynamically resolve the path for the FAISS index
-    index_path = os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'embeddings', 'city_embeddings.index')    
-    index = faiss.read_index(index_path)
-
-    # Ensure user embedding matches FAISS index dimension
-    user_embedding = np.array(user_embedding).astype("float32").reshape(1, -1)
-
-    if user_embedding.shape[1] < index.d:
-        user_embedding = np.pad(user_embedding, ((0, 0), (0, index.d - user_embedding.shape[1])), mode='constant')
-    elif user_embedding.shape[1] > index.d:
-        user_embedding = user_embedding[:, :index.d]
-
-    # Search FAISS for all city embeddings
-    distances, indices = index.search(user_embedding, index.ntotal)  # Retrieve all cities
-
-    # Convert L2 distances to similarity scores (1 / (1 + distance))
-    similarity_scores = 1 / (1 + distances[0])
-
-
-    # Load city names
-    city_names_path = os.path.join(SCRIPT_DIR, "data/embeddings/city_names.json")
-    print("PTH: " + city_names_path)
-    with open(city_names_path, "r") as f:
-        city_names = json.load(f)
-
-    # Pair city names with similarity scores
-    city_scores = [(city_names[idx], similarity_scores[i]) for i, idx in enumerate(indices[0])]
-
-    # Sort by similarity score (descending order)
-    city_scores = sorted(city_scores, key=lambda x: x[1], reverse=True)
-
-    # Return top-k cities if specified
-    if top_k:
-        return city_scores[:top_k]
-    return city_scores
-
-def get_recommendations_with_time_old(image_folder_path, prompt, alpha, beta, top_k=5):
-    """
-    Generates city recommendations based on user embedding and records the running time.
-
-    Args:
-        image_folder_path (str): Path to the folder containing user images.
-        prompt_path (str): Path to the folder containing tokenized prompts.
-        alpha (float): Weight for image embeddings.
-        beta (float): Weight for prompt embeddings.
-        top_k (int, optional): Number of top cities to retrieve. Defaults to 5.
-
-    Returns:
-        Tuple containing the list of recommended cities with similarity scores and the running time.
-    """
-    start = datetime.datetime.now()
-    user_embedding = get_user_overall_embedding(image_folder_path, prompt, alpha, beta)
-    recommendations = recommend_cities(user_embedding, top_k=top_k)
-
-    end = datetime.datetime.now()
-    running_time = end - start
-
-    return recommendations, running_time
 
 def recommend_cities(user_embedding, top_k=None, mongo_uri=None, db_name=None, collection_name=None):
     """
@@ -98,7 +30,8 @@ def recommend_cities(user_embedding, top_k=None, mongo_uri=None, db_name=None, c
         List of recommended city details with similarity scores.
     """
     # Dynamically resolve the path for the FAISS index
-    index_path = os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'embeddings', 'city_embeddings_mongo.index')    
+    index_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'embeddings', 'city_embeddings_mongo.index')   
+    print(index_path) 
     index = faiss.read_index(index_path)
 
     # Ensure user embedding matches FAISS index dimension
@@ -115,7 +48,7 @@ def recommend_cities(user_embedding, top_k=None, mongo_uri=None, db_name=None, c
     similarity_scores = np.round(1 / (1 + distances[0]), 4)
 
     # Load city names
-    city_names_path = os.path.join(SCRIPT_DIR, "data/embeddings/city_names_mongo.json")
+    city_names_path = os.path.join(SCRIPT_DIR, "API/data/embeddings/city_names_mongo.json")
     with open(city_names_path, "r") as f:
         city_names = json.load(f)
 
@@ -160,26 +93,6 @@ def recommend_cities(user_embedding, top_k=None, mongo_uri=None, db_name=None, c
     return recommended_cities
 
 
-def explanation(city_name):
-    """
-    Provides an explanation for the recommendation.
-
-    Args:
-        city_name (str): Name of the recommended city.
-
-    Returns:
-        Explanation for the recommendation.
-    """
-    # Dynamically resolve the path for the city explanations
-    city_explanations_path = resolve_file_path("/data/embeddings/city_explanations.json")
-    with open(city_explanations_path, "r") as f:
-        city_explanations = json.load(f)
-
-    # Return explanation for the recommended city
-    return city_explanations[city_name]
-
-
-from bson import ObjectId
 
 def get_city_details(mongo_uri, db_name, collection_name, city_ids):
     if not isinstance(city_ids, list):
@@ -265,21 +178,15 @@ def get_recommendations_with_time(image_folder_path, prompt, alpha, beta, top_k=
 
 
 
-# # Example Usage
-# image_folder_path = os.path.abspath(os.path.join(SCRIPT_DIR, "data/images"))
-# #image_folder_path = "/Users/apple/Documents/GitHub/Wander-Whisper/API/data/images"
-# prompt = """
-# I want a luxury getaway where I can relax and indulge. A high-end resort with a beachfront view and spa facilities is a must. My budget is around $10,000, and I’m traveling with my partner for one week. I’d love to enjoy fine dining, high-end shopping, and private guided tours. My departure location is London, and I’m planning to travel in June. Safety and exclusivity are my top priorities, and I prefer a destination with warm, sunny weather. I also need reliable internet as I may need to check emails occasionally.
-# """
-# alpha = 0.5
-# beta = 0.5
-# top_k = 10
+if __name__ == "__main__":
+    image_folder_path = os.path.abspath(os.path.join(SCRIPT_DIR, "API/data/images"))
+    print(image_folder_path)
+    prompt = """
+    I want a luxury getaway where I can relax and indulge. 
+    """
+    alpha = 0.5
+    beta = 0.5
+    top_k = 10
 
-# recommendations, running_time = get_recommendations_with_time(image_folder_path, prompt, alpha, beta, top_k)
-# print("\n**Top Recommended Cities:**")
-# #for city, score in recommendations:
-# #    print(f"{city} - Similarity Score: {score*100:.2f}/100")
-#     #print(f"Explanation: {explanation(city)}\n")
-# print(prompt)
-# print(recommendations)
-# print("Time taken:", running_time)
+    recommendations, running_time = get_recommendations_with_time(image_folder_path, prompt, alpha, beta, top_k)
+    print(recommendations)

@@ -1,0 +1,92 @@
+[
+    {
+        "city_id": "22",
+        "name": "Vienna",
+        "country": "Austria",
+        "lat": "48.2083",
+        "lng": "16.3725",
+        "description": "The capital of Austria, famous for its imperial palaces, music history, and cultural heritage.",
+        "score": 0.7484999895095825
+    },
+    {
+        "city_id": "76",
+        "name": "Nagoya",
+        "country": "Japan",
+        "lat": "35.1833",
+        "lng": "136.9",
+        "description": "A city in Japan known for its automotive industry, rich history, and cultural attractions.",
+        "score": 0.7436000108718872
+    },
+    {
+        "city_id": "110",
+        "name": "Tucson",
+        "country": "United States",
+        "lat": "32.1541",
+        "lng": "-110.8787",
+        "description": "A city in Arizona, known for its desert landscapes, Native American history, and vibrant arts scene.",
+        "score": 0.7433000206947327
+    },
+    {
+        "city_id": "128",
+        "name": "Malm\u00f6",
+        "country": "Sweden",
+        "lat": "55.6058",
+        "lng": "13.0358",
+        "description": "A city in Sweden, known for its modern architecture, coastal location, and proximity to Copenhagen.",
+        "score": 0.7433000206947327
+    },
+    {
+        "city_id": "204",
+        "name": "Ottawa",
+        "country": "Canada",
+        "lat": "45.4247",
+        "lng": "-75.695",
+        "description": "The capital of Canada, known for its political institutions, historic sites, and scenic riverside.",
+        "score": 0.7384999990463257
+    },
+    {
+        "city_id": "202",
+        "name": "Kawasaki",
+        "country": "Japan",
+        "lat": "33.6",
+        "lng": "130.815",
+        "description": "A city in Japan, known for its industrial sector, temples, and modern cityscape.",
+        "score": 0.7378000020980835
+    },
+    {
+        "city_id": "231",
+        "name": "Birmingham",
+        "country": "United Kingdom",
+        "lat": "52.48",
+        "lng": "-1.9025",
+        "description": "A city in the UK, known for its industrial history, diverse culture, and strong economy.",
+        "score": 0.7378000020980835
+    },
+    {
+        "city_id": "238",
+        "name": "Duisburg",
+        "country": "Germany",
+        "lat": "51.4347",
+        "lng": "6.7625",
+        "description": "A German city, known for its inland port, industrial past, and cultural transformation.",
+        "score": 0.7376999855041504
+    },
+    {
+        "city_id": "273",
+        "name": "Billings",
+        "country": "United States",
+        "lat": "45.7891",
+        "lng": "-108.5526",
+        "description": "A city in Montana, USA, known for its proximity to Yellowstone and outdoor recreation.",
+        "score": 0.7372000217437744
+    },
+    {
+        "city_id": "305",
+        "name": "Winnipeg",
+        "country": "Canada",
+        "lat": "49.8844",
+        "lng": "-97.1464",
+        "description": "The capital of Manitoba, Canada, known for its cold winters and cultural festivals.",
+        "score": 0.7369999885559082
+    }
+]

@@ -10,7 +10,7 @@ def train_t5():
     tokenizer.save_pretrained("fine_tuned_models/t5_tokenizer")
 
     # ✅ Load dataset correctly
-    dataset = load_from_disk("./synthetic_prompts/tokenized_synthetic_travel_data")
+    dataset = load_from_disk("tokenized_synthetic_travel_data")
 
     # ✅ Explicitly reference train and validation splits
     train_dataset = dataset["train"]

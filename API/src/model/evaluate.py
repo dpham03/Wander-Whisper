@@ -23,22 +23,7 @@ def clean_and_extract_values(text):
     text = re.sub(r'\s+', ' ', text)  # Ensure only one space between words
     return text.strip()
 
-
-def extract_criteria(generated_text, criteria_list):
-    """
-    Extracts structured criteria from generated text using regex.
-    """
-    extracted_criteria = {}
-    for criterion in criteria_list:
-        pattern = rf'"{criterion}":\s*"?(.*?)"?(,|$)'
-        match = re.search(pattern, generated_text)
-        if match:
-            extracted_criteria[criterion] = match.group(1).strip()
-    return extracted_criteria
-
-import re
-
-def extract_criteria2(text, criteria_list):
+def extract_criteria(text, criteria_list):
     """
     Extracts key-value pairs based on criteria from structured text.
 
@@ -85,7 +70,7 @@ def user_preferences_to_embedding(cleaned_output, model_name="sentence-transform
 
     return combined_embedding
 
-def evaluate_t5(input_text):
+def extract_prompt_embedding(input_text):
     """
     Takes an input paragraph, extracts structured attributes using T5, and returns a 512D embedding.
     """
@@ -128,19 +113,15 @@ def evaluate_t5(input_text):
     generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
     
     # Extract structured attributes
-    structured_output = extract_criteria2(generated_text, criteria_list)
-    #print(structured_output)
-    #print(structured_output)
-    # Convert structured attributes into a 512D embedding
+    structured_output = extract_criteria(generated_text, criteria_list)
     user_embedding = user_preferences_to_embedding(structured_output)
 
     return user_embedding
 
 # Example usage
 if __name__ == "__main__":
-    input_text = "I am departing from Toronto, Canada in July and will return in August. My budget is adventure travel budget ($1,000 - $3,000 for guided tours), and I prefer local delicacies. I will be traveling solo for one week, and I enjoy hiking. I prefer a mountainous destination with cool ocean breeze weather. I will travel via high-speed train and prefer to use local currency for transactions. My accommodation choice is eco-lodge, and my transportation preference is walking. I want an adventure experience with wildlife conservation focus. My trip should be extreme adventure, and I love indigenous culture. I am interested in Carnival in Rio and will need full travel insurance. I prefer locations with female-friendly and wheelchair access support. For nightlife, I prefer casual bars, and my adventure level is high. I will also be adding guided city tours to my trip."
-    #print(input2)
+    input_text = "I am departing from Toronto"
     #print(extract)
-    embedding = evaluate_t5(input_text)
+    embedding = extract_prompt_embedding(input_text)
     print(f"User Embedding Shape: {embedding.shape}")  # (512,)
     print(f"Sample Embedding: {embedding[:5]}")

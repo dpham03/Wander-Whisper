@@ -86,16 +86,28 @@ for _ in range(10000):  # Generate 10,000 samples
 
     # Create the prompt
     prompt = f"I am departing from {departure_location} in {departure_month} and will return in {return_month}. "
-    prompt += f"My budget is {budget}, and I prefer {food_preference}. "
-    prompt += f"I will be traveling {travel_companions} for {travel_duration}, and I enjoy {preferred_activities}. "
-    prompt += f"I prefer a {destination_type} destination with {weather_preference} weather. "
-    prompt += f"My transportation preference is {transportation_mode}. "
-    prompt += f"My trip is in {season}, and I am interested in {event_interest}. "
-    prompt += f"The local language should be {language_preference}, and I need a {visa_requirement} destination. "
-    prompt += f"My trip should be {trip_intensity}, and my adventure level is {adventure}. "
-    prompt += f"For nightlife, I prefer {nightlife}. I prefer locations with {safety_preference} and {accessibility_needs} support. "
-    prompt += f"I am interested in a {travel_theme} experience with {sustainability_focus} focus. "
-    prompt += f"I will also be adding {travel_addon} to my trip."
+    if random.choice([True, False]):
+        prompt += f"My budget is {budget}, and I prefer {food_preference}. "
+    if random.choice([True, False]):
+        prompt += f"I will be traveling {travel_companions} for {travel_duration}, and I enjoy {preferred_activities}. "
+    if random.choice([True, False]):
+        prompt += f"I prefer a {destination_type} destination with {weather_preference} weather. "
+    if random.choice([True, False]):
+        prompt += f"My transportation preference is {transportation_mode}. "
+    if random.choice([True, False]):
+        prompt += f"My trip is in {season}, and I am interested in {event_interest}. "
+    if random.choice([True, False]):
+        prompt += f"The local language should be {language_preference}, and I need a {visa_requirement} destination. "
+    if random.choice([True, False]):
+        prompt += f"My trip should be {trip_intensity}, and my adventure level is {adventure}. "
+    if random.choice([True, False]):
+        prompt += f"For nightlife, I prefer {nightlife}. "
+    if random.choice([True, False]):
+        prompt += f"I prefer locations with {safety_preference} and {accessibility_needs} support. "
+    if random.choice([True, False]):
+        prompt += f"I am interested in a {travel_theme} experience with {sustainability_focus} focus. "
+    if random.choice([True, False]):
+        prompt += f"I will also be adding {travel_addon} to my trip."
 
     # Expected output
     expected_output = {
@@ -121,7 +133,7 @@ for _ in range(10000):  # Generate 10,000 samples
     synthetic_data["data"].append({"prompt": prompt, "output": expected_output})
 
 # Save dataset
-with open("./synthetic_prompts/expanded_synthetic_travel_data.json", "w") as f:
+with open("synthetic_travel_prompts.json", "w") as f:
     json.dump(synthetic_data, f, indent=4)
 
 print("✅ Synthetic travel data generated and saved!")

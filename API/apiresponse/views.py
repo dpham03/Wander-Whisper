@@ -18,7 +18,7 @@ import time
 
 # database and embedding tools
 sys.path.append('..')
-from src.faiss_indexing.extract_city import get_recommendations_with_time
+from API.src.recommend import get_recommendations_with_time
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
