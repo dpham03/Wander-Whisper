@@ -25,14 +25,19 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 @csrf_exempt
 def upload_image(request):
     """ Post the images """
-    if not (request.method == "POST" and request.FILES.get("image")):
-            return JsonResponse({"error": "No image uploaded."}, status=HTTP.BAD_REQUEST)
+    if not request.method == "POST":
+        return JsonResponse({"error": "Invalid request method."}, status=HTTP.BAD_REQUEST)
 
-    image = request.FILES["image"]
-    if MediaOperator.addImage(image) is False:
-        return JsonResponse({"error": "Invalid image format. Only .jpg, .jpeg, .png, .gif, and .bmp are allowed."}, status=HTTP.BAD_REQUEST)
+    images = request.FILES.getlist("image")
+    if not images:
+        print("No images in request.FILES")
+        return JsonResponse({"error": "No image uploaded."}, status=HTTP.BAD_REQUEST)
 
-    return JsonResponse({"success": f"Image '{image.name}' uploaded."}, status=HTTP.CREATED)
+    for image in images:
+        if MediaOperator.addImage(image) is False:
+            return JsonResponse({"error": "Invalid image format. Only .jpg, .jpeg, .png, .gif, and .bmp are allowed."}, status=HTTP.BAD_REQUEST)
+
+    return JsonResponse({"success": f"Image '{len(images)}' uploaded."}, status=HTTP.CREATED)
     
 @csrf_exempt
 def upload_prompt(request):

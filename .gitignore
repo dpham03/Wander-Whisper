@@ -21,3 +21,4 @@ API/fine_tuned_models/
 train_travel_data.json
 validation_travel_data.json
 test_travel_data.json
+.idea
