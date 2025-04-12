@@ -5,19 +5,22 @@ from constants import KnownDirs, Media
 def createMedia():
     os.makedirs(KnownDirs.IMAGE_DIR, exist_ok=True)
 
-def addImage(image):    
+def addImage(image):
     if mediaSafeCheck(image) is False:
         return False
     
     image_path = os.path.join(KnownDirs.IMAGE_DIR, image.name)
+    os.makedirs(os.path.dirname(image_path), exist_ok=True)
+
     with open(image_path, "wb+") as dest:
         for chunk in image.chunks():
             dest.write(chunk)
-    
+
     return True
 
 def addPrompt(prompt):
     try:
+        os.makedirs(os.path.dirname(KnownDirs.TEXT_FILE_PATH), exist_ok=True)
         with open(KnownDirs.TEXT_FILE_PATH, "w") as f:
             f.write(prompt)
     except:
@@ -26,6 +29,7 @@ def addPrompt(prompt):
 
 def readPrompt(base_dir, back_pedal):
     back_pedal_translated = '../' * back_pedal
+    os.makedirs(os.path.dirname(KnownDirs.TEXT_FILE_PATH), exist_ok=True)
     relative_prompt_path = os.path.abspath(
         os.path.join(
                 base_dir, 
@@ -51,11 +55,17 @@ def mediaHasDataCheck():
     )
     return (prompt_exists, images_exist)
 
-def cleanupMedia():
+def cleanupImages():
     if os.path.exists(KnownDirs.IMAGE_DIR):
         shutil.rmtree(KnownDirs.IMAGE_DIR)  # Deletes all images
         os.makedirs(KnownDirs.IMAGE_DIR)  # Recreate empty folder
 
-    # Delete the prompt file if it exists
+def cleanupPrmopt():
+# Delete the prompt file if it exists
     if os.path.exists(KnownDirs.TEXT_FILE_PATH):
         os.remove(KnownDirs.TEXT_FILE_PATH)
+
+def cleanupMedia():
+    cleanupImages()
+    cleanupPrmopt()
+    

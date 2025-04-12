@@ -7,7 +7,7 @@ from pymongo import MongoClient
 
 # Add the src folder to the system path to allow imports
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'src')))
-from implicit_user_embedding import get_user_overall_embedding
+from src.implicit_user_embedding import get_user_overall_embedding
 import datetime
 from bson import ObjectId
 
@@ -30,8 +30,8 @@ def recommend_cities(user_embedding, top_k=None, mongo_uri=None, db_name=None, c
         List of recommended city details with similarity scores.
     """
     # Dynamically resolve the path for the FAISS index
-    index_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'embeddings', 'city_embeddings_mongo.index')   
-    print(index_path) 
+    index_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'embeddings', 'city_embeddings_mongo.index')
+
     index = faiss.read_index(index_path)
 
     # Ensure user embedding matches FAISS index dimension
@@ -48,7 +48,7 @@ def recommend_cities(user_embedding, top_k=None, mongo_uri=None, db_name=None, c
     similarity_scores = np.round(1 / (1 + distances[0]), 4)
 
     # Load city names
-    city_names_path = os.path.join(SCRIPT_DIR, "API/data/embeddings/city_names_mongo.json")
+    city_names_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'embeddings', 'city_names_mongo.json')
     with open(city_names_path, "r") as f:
         city_names = json.load(f)
 
@@ -157,7 +157,6 @@ def get_recommendations_with_time(image_folder_path, prompt, alpha, beta, top_k=
     
     # Get user embedding
     user_embedding = get_user_overall_embedding(image_folder_path, prompt, alpha, beta)
-    #print(user_embedding)
     # Get city recommendations
     recommendations = recommend_cities(user_embedding, top_k=top_k, mongo_uri=mongo_uri, db_name=db_name, collection_name=collection_name)
     #print(recommendations[1])

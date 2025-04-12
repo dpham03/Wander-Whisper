@@ -33,6 +33,7 @@ def upload_image(request):
         print("No images in request.FILES")
         return JsonResponse({"error": "No image uploaded."}, status=HTTP.BAD_REQUEST)
 
+    MediaOperator.cleanupImages()
     for image in images:
         if MediaOperator.addImage(image) is False:
             return JsonResponse({"error": "Invalid image format. Only .jpg, .jpeg, .png, .gif, and .bmp are allowed."}, status=HTTP.BAD_REQUEST)

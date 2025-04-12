@@ -93,8 +93,7 @@ def get_user_overall_embedding(image_folder_path, prompt, alpha, beta):
     start_time = datetime.now()
     image_embedding, text_embedding = None, None
     # Convert relative paths to absolute paths
-    image_folder_path = os.path.abspath(os.path.join(SCRIPT_DIR, '../../../', image_folder_path))
-
+    image_folder_path = os.path.abspath(os.path.join(SCRIPT_DIR, '../../', image_folder_path))
     # Extract image embedding only if the folder exists
     if os.path.exists(image_folder_path):
         def extract_image_embedding():
