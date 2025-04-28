@@ -43,6 +43,25 @@ Step 4: Fetch Live Data
     	Hotel: $70 per night for a beachfront villa (via Booking.com).
     	Weather: Sunny, 27°C average in March (via OpenWeatherMap).
 
+## Data Source
+
+This project uses data from **OpenFlights** for airport and route information. The data is available under the **Open Database License (ODbL)**.
+
+### Files Used:
+- **airports.dat**: Contains information about airports worldwide.
+- **routes.dat**: Contains data about routes between airports.
+
+### License:
+- **License**: Open Database License (ODbL)
+- **Data source**: [OpenFlights Dataset](https://openflights.org/data.html)
+
+### Attribution:
+This data is provided by OpenFlights and is available under the **Open Database License (ODbL)**. Please attribute the data as follows:
+
+> "Data © OpenFlights contributors"
+
+For full license details, see: [ODbL License](https://opendatacommons.org/licenses/odbl/)
+
 
 
 UI: after the user input, make a world map, where there are several red dots that users can hover, when they hover to that red dot, information about the location appears: images, link to the cheapest flight (maybe SkyScanner API), current weather…., and maybe a suggested tour.
