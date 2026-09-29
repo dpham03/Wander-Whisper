@@ -1,6 +1,8 @@
 # Wander Whisper
 Group 1's Senior Project
 
+This is the Repo for Backend - frontend @ https://github.com/KhoaTran1311/Wander-Whisper-Frontend 
+
 Download model checkpoint: https://drive.google.com/drive/folders/1wCkVJHx6ogiJvcDdCfoWNEqItzyhVHTU?usp=sharing
 
 Input
